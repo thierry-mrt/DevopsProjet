@@ -1,0 +1,9 @@
+name: test-echo-toto
+run-name: ${{ github.actor }} is learning GitHub Actions
+on: [push]
+jobs:
+  test-echo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "toto"
