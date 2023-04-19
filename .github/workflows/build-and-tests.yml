@@ -13,5 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build-project]
     steps:
-      - name: Build with Maven
+      - uses: actions/checkout@v3
+      - name: Tests with Maven
         run: mvn -B test --file pom.xml
