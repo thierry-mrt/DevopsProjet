@@ -10,6 +10,7 @@ jobs:
 
   test-echo2:
     runs-on: ubuntu-latest
+    needs: [test-echo]
     steps:
       - uses: actions/checkout@v3
       - run: echo "toto2"
