@@ -5,8 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestDataFrame {
 
     @Test
-    public void Test(){
+    public void testdataframetest(){
         assertTrue(true, "test");
+    }
+
+    @Test
+    public void testdataframetest2(){
+        assertTrue(false, "test");
     }
 
 }
