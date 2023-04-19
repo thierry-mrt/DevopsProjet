@@ -14,4 +14,4 @@ jobs:
     needs: [build-project]
     steps:
       - name: Build with Maven
-        run: mvn test
+        run: mvn -B test --file pom.xml
