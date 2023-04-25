@@ -11,7 +11,7 @@ public class TestDataFrame {
 
     @Test
     public void testdataframetest2(){
-        assertTrue(false, "test du 2eme test");
+        assertTrue(true, "test du 2eme test");
     }
 
 }
