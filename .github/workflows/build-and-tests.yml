@@ -35,5 +35,5 @@ jobs:
         with:
           artifact: test-results
           name: Maven Tests
-          path: target/surefire-reports/test-results
+          path: target/surefire-reports/test-results/*.xml
           reporter: java-junit
