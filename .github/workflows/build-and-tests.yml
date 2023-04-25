@@ -33,7 +33,7 @@ jobs:
         uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          artifact: test-results
+#          artifact: test-results
           name: Maven Tests
           path: target/surefire-reports/test-results/*.xml
           reporter: java-junit
