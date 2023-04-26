@@ -3,6 +3,7 @@ import java.lang.reflect.InvocationTargetException;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 
 public class DataFrame {
@@ -416,5 +417,31 @@ public class DataFrame {
         return maximum;
     }
 
+    public DataFrame selectLinesByIndex(Integer[] indexToSelect){
+
+        ArrayList<ArrayList<String>> newData = new ArrayList<>();
+        ArrayList<Integer> rowNumber = new ArrayList<>();
+        //Récupère les indices des index dans le tableau index du Dataframe (car les valeurs des index peuvent ne pas se suivre)
+        for (int i = 0; i < indexToSelect.length; i++) {
+            rowNumber.add(this.index.indexOf(indexToSelect[i]));
+        }
+
+        //Tri les index à sélectionner par leur ordre dans le DataFrame (l'user peut passer des index à seletionner dans le désordre)
+        Collections.sort(rowNumber);
+
+        ArrayList<Integer> sortedIndex = new ArrayList<>();
+
+        //Récupère les lignes de données correspondante au index
+        //Récupère les valeurs des index dans l'ordre trié
+        for (int i = 0; i < rowNumber.size(); i++) {
+            int rowNumberToAdd = rowNumber.get(i);
+            newData.add(this.data.get(rowNumberToAdd));
+            sortedIndex.add(this.index.get(rowNumber.get(i)));
+        }
+
+        DataFrame newDataFrame = new DataFrame(newData,sortedIndex,this.getColumnNames(),this.getTypes());
+
+        return newDataFrame;
+    }
 
 }
