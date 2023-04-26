@@ -84,6 +84,8 @@ public class DataFrame {
      * - il manque soit les types, les noms de colonnes ou les index
      * - il y a des doublons dans le nom des colonnes ou le nom des index
      * - le mauvais separateur est passé
+     * - fichier n'existe pas
+     * - les index ne sont pas des integers
      */
     public DataFrame(String filePath, String fileSeparator) {
         this.data = new ArrayList<>();
@@ -167,9 +169,9 @@ public class DataFrame {
             }
 
         } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("File not found : "+e);
         } catch (NumberFormatException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Index Names are not Integer : "+e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

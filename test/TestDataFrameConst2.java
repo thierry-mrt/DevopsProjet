@@ -507,7 +507,7 @@ public class TestDataFrameConst2  {
 
         assertThrows(IllegalArgumentException.class, () -> {
             d[0] = new DataFrame(csvPath+"/fileMultipleSeparator.csv",";");
-        }, "Fichier avec le mauvais fileSeparator utilisé, test du throw de IllegalArgumentException");
+        }, "Fichier avec différent fileSeparator utilisé, test du throw de IllegalArgumentException");
 
         assertEquals(null,d[0],"Dataframe ne doit pas avoir été créé");
     }
@@ -518,7 +518,40 @@ public class TestDataFrameConst2  {
 
         assertThrows(IllegalArgumentException.class, () -> {
             d[0] = new DataFrame(csvPath+"/fileMultipleSeparator.csv",",");
-        }, "Fichier avec le mauvais fileSeparator utilisé, test du throw de IllegalArgumentException");
+        }, "Fichier avec différent fileSeparator utilisé, test du throw de IllegalArgumentException");
+
+        assertEquals(null,d[0],"Dataframe ne doit pas avoir été créé");
+    }
+
+    @Test
+    public void testFileMissingColumnNames(){
+        final DataFrame[] d = {null};
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            d[0] = new DataFrame(csvPath+"/fileMissingColumn.csv",";");
+        }, "Fichier sans nom de colonnes, test du throw de IllegalArgumentException");
+
+        assertEquals(null,d[0],"Dataframe ne doit pas avoir été créé");
+    }
+
+    @Test
+    public void testFileIndexNotInteger(){
+        final DataFrame[] d = {null};
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            d[0] = new DataFrame(csvPath+"/fileNotIntegerIndex.csv",";");
+        }, "Fichier avec des index qui ne sont pas des entiers, test du throw de IllegalArgumentException");
+
+        assertEquals(null,d[0],"Dataframe ne doit pas avoir été créé");
+    }
+
+    @Test
+    public void testFileNotFound(){
+        final DataFrame[] d = {null};
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            d[0] = new DataFrame(csvPath+"/notExistinfFile.dontExist",";");
+        }, "Fichier non existant, test du throw de IllegalArgumentException");
 
         assertEquals(null,d[0],"Dataframe ne doit pas avoir été créé");
     }
