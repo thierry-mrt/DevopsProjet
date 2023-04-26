@@ -417,4 +417,39 @@ public class DataFrame {
     }
 
 
+    /**
+     * Crée un sous-ensemble de colonnes
+     * @param labels les noms des colonnes à inclure dans le sous-ensemble
+     * @return un nouveau DataFrame contenant les colonnes spécifiées
+     */
+    public DataFrame sousEnsembleColonnes(ArrayList<String> labels){
+
+        for (String label: labels) {
+            assert columnDoesExist(label);
+        }
+        
+        ArrayList<String> nouveauColumnNames = labels;
+        
+        ArrayList<Integer> nouveauIndex = this.index;
+
+        ArrayList<String> nouveauTypes = new ArrayList<>();
+        for (String label: labels) {
+            int indexColonne = columnNames.indexOf(label);
+            nouveauTypes.add(types.get(indexColonne));
+        }
+
+        ArrayList<ArrayList<String>> nouveauData = new ArrayList<>();
+        for (ArrayList<String> line: data) {
+            ArrayList<String> nouvelleLigne = new ArrayList<>();
+            for (String label: labels) {
+                int indexColonne = columnNames.indexOf(label);
+                nouvelleLigne.add(line.get(indexColonne));
+            }
+            nouveauData.add(nouvelleLigne);
+        }
+
+        return new DataFrame(nouveauData,nouveauIndex,nouveauColumnNames,nouveauTypes);
+    }
+
+
 }
