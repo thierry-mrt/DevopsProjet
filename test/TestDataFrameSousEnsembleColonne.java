@@ -84,6 +84,16 @@ public class TestDataFrameSousEnsembleColonne{
     }
 
     /**
+     * Test de la méthode sousEnsembleColonne sur un tableau de labels à doublons
+     */
+    @Test
+    public void testSousEnsembleColonneDoublons(){
+        ArrayList<String> labels = new ArrayList<>(Arrays.asList("Fruit", "Marque", "Fruit"));
+        assertThrows(IllegalArgumentException.class, () -> dataFrame.sousEnsembleColonnes(labels), 
+        "Un sous ensemble de nom de colonnes avec doublons a été fourni");
+    }
+
+    /**
      * Test de la méthode sousEnsembleColonne sur des colonnes non existantes
      */
     @Test
