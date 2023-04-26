@@ -26,6 +26,58 @@ public class TestDataFrameStats {
     }
 
     /**
+     * Test de la méthode calculerSommeColonne sur des colonnes de type entier
+     */
+    @Test
+    public void testCalculerSommeColonneEntiers() {
+        expected = 9;
+        actual = dataFrame.calculerSommeColonne("Entiers");
+        assertEquals(expected, actual, "Somme de la colonne Entiers incorrecte");
+    }
+
+    /**
+     * Test de la méthode calculerSommeColonne sur des colonnes de type flottant
+     */
+    @Test
+    public void testCalculerSommeColonneFlottants() {
+        expected = 9;
+        actual = dataFrame.calculerSommeColonne("Flottants");
+        assertEquals(expected, actual, "Somme de la colonne Flottants incorrecte");
+    }
+
+    /**
+     * Test de la méthode calculerSommeColonne sur des colonnes de données vides
+     */
+    @Test
+    public void testCalculerSommeColonneVide() {
+        expected = 0;
+        actual = dataFrame.calculerSommeColonne("Vide");
+        assertEquals(expected, actual, "Somme de la colonne Vide incorrecte");
+    }
+
+    /**
+     * Test de la méthode calculerSommeColonne sur des colonnes inexistantes
+     */
+    @Test
+    public void testCalculerSommeColonneInexistante() {
+        assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerSommeColonne("Panier"),
+                "La colonne Panier n'existe pas");
+        assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerSommeColonne(""),
+                "La colonne  n'existe pas");
+    }
+
+    /**
+     * Test de la méthode calculerSommeColonne sur des colonnes non numériques
+     */
+    @Test
+    public void testCalculerSommeColonneNonNumerique() {
+        assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerSommeColonne("Strings"),
+                "La colonne Strings n'est pas numérique (non-sommable)");
+        assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerSommeColonne("Booleans"),
+                "La colonne Booleans n'est pas numérique (non-sommable)");
+    }
+
+    /**
      * Test de la méthode calculerMoyenneColonne sur des colonnes de type entier
      */
     @Test
@@ -72,9 +124,9 @@ public class TestDataFrameStats {
     @Test
     public void testCalculerMoyenneColonneNonNumerique() {
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerMoyenneColonne("Strings"),
-                "La colonne Strings n'est pas numérique");
+                "La colonne Strings n'est pas numérique (non-moyenable)");
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerMoyenneColonne("Booleans"),
-                "La colonne Booleans n'est pas numérique");
+                "La colonne Booleans n'est pas numérique (non-moyenable)");
     }
 
     /**
@@ -124,9 +176,9 @@ public class TestDataFrameStats {
     @Test
     public void testCalculerMaximumColonneNonNumerique() {
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerLeMaximumColonne("Strings"),
-                "La colonne Strings n'est pas numérique");
+                "La colonne Strings n'est pas numérique (non-maximisable)");
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerLeMaximumColonne("Booleans"),
-                "La colonne Booleans n'est pas numérique");
+                "La colonne Booleans n'est pas numérique (non-maximisable)");
     }
 
     /**
@@ -176,9 +228,8 @@ public class TestDataFrameStats {
     @Test
     public void testCalculerMinimumColonneNonNumerique() {
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerLeMinimumColonne("Strings"),
-                "La colonne Strings n'est pas numérique");
+                "La colonne Strings n'est pas numérique (non-minimisable)");
         assertThrows(IllegalArgumentException.class, () -> dataFrame.calculerLeMinimumColonne("Booleans"),
-                "La colonne Booleans n'est pas numérique");
+                "La colonne Booleans n'est pas numérique (non-minimisable)");
     }
-
 }
