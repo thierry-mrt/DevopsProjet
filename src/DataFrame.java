@@ -286,7 +286,7 @@ public class DataFrame {
     }
   
 
-     * Affiche les premières lignes du DataFrame
+     /* Affiche les premières lignes du DataFrame
      * @param premieresLignes nombre de lignes à afficher
      */
     public void afficherPremieresLignes(int premieresLignes){
