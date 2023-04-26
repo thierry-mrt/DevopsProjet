@@ -94,5 +94,48 @@ public class DataFrame {
         this.types = types;
     }
 
+    /**
+     * Affiche le DataFrame
+     */
+    public void afficher(){
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+
+    /**
+     * Affiche les premières lignes du DataFrame
+     * @param premieresLignes nombre de lignes à afficher
+     */
+    public void afficherPremieresLignes(int premieresLignes){
+        if (premieresLignes <= 0) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est null ou négatif");
+        }
+        if (premieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < premieresLignes; i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+
+    /**
+     * Affiche les dernières lignes du DataFrame
+     * @param dernieresLignes nombre de lignes à afficher
+     */
+    public void afficherDernieresLignes(int dernieresLignes){
+        if (dernieresLignes <= 0) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est nul ou négatif");
+        }
+        if (dernieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = data.size() - dernieresLignes; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
 
 }
