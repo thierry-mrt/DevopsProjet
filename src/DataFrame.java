@@ -1,8 +1,9 @@
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 public class DataFrame {
 
@@ -10,8 +11,8 @@ public class DataFrame {
     private ArrayList<Integer> index;
     private ArrayList<String> columnNames;
     private ArrayList<String> types;
+    private String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"}; // types autorisés
 
-    private String possibleTypes[] = {"STRING","INTEGER","BOOLEAN","FLOAT"};
 
     public ArrayList<ArrayList<String>> getData() {
         return data;
@@ -23,21 +24,47 @@ public class DataFrame {
     public ArrayList<String> getColumnNames() {
         return columnNames;
     }
-
     public ArrayList<String> getTypes() {
         return types;
     }
-    public DataFrame(ArrayList<ArrayList<String>> data, ArrayList<Integer> index, ArrayList<String> columnNames) {
 
-        if (data.size() != columnNames.size()) {
-            throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de noms de colonnes");
+    /**
+     * Constructeur de la classe DataFrame
+     * @param data tableau de données (lignes du DataFrame)
+     * @param index tableau d'index (un index par ligne)
+     * @param columnNames tableau de noms de colonnes (un nom par colonne)
+     * @param types tableau de types de données (un type par colonne)
+     */
+    public DataFrame(ArrayList<ArrayList<String>> data, ArrayList<Integer> index, ArrayList<String> columnNames, ArrayList<String> types) {
+
+        if (types.size()==0 && columnNames.size()!=0) {
+            throw new IllegalArgumentException("Aucun type de données n'a été fourni");
         }
 
-        int max = 0;
-        for (ArrayList<String> colonne : data) {
-            if (colonne.size() > max) max = colonne.size();
+        for (int i = 0; i < types.size(); i++) {
+            types.set(i, types.get(i).toUpperCase());
+            if (!Arrays.asList(possibleTypes).contains(types.get(i))) {
+                throw new IllegalArgumentException("Le type " + types.get(i) + " n'est pas autorisé");
+            }
         }
-        if (max != index.size()) {
+
+        int nombreColonnes = columnNames.size();
+
+        for (ArrayList<String> line: data) {
+            while (line.size() < columnNames.size()) {
+                line.add("");
+            }
+            if (line.size() > nombreColonnes) {
+                throw new IllegalArgumentException("Une ligne de données a plus d'éléments que le nombre de colonnes fournies");
+            }
+        }
+
+        int nombreLignes = data.size();
+
+        if (nombreColonnes != types.size()) {
+            throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de types fournis");
+        }
+        if (nombreLignes != index.size()) {
             throw new IllegalArgumentException("Le nombre d'index est différent du nombre de lignes");
         }
 
@@ -70,6 +97,7 @@ public class DataFrame {
         this.data = data;
         this.columnNames = columnNames;
         this.index = index;
+        this.types = types;
     }
 
     /**
@@ -177,6 +205,7 @@ public class DataFrame {
         }
     }
 
+
     /**
      * @param name : columnNames to test
      * @return true true if the name is a doublon , false otherwise
@@ -243,7 +272,50 @@ public class DataFrame {
             }else{
                 columnNames.add(listColumnNames[i]);
             }
+        }
+    }
+  
+    /**
+     * Affiche le DataFrame
+     */
+    public void afficher(){
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+  
 
+     * Affiche les premières lignes du DataFrame
+     * @param premieresLignes nombre de lignes à afficher
+     */
+    public void afficherPremieresLignes(int premieresLignes){
+        if (premieresLignes <= 0) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est null ou négatif");
+        }
+        if (premieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < premieresLignes; i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+
+    /**
+     * Affiche les dernières lignes du DataFrame
+     * @param dernieresLignes nombre de lignes à afficher
+     */
+    public void afficherDernieresLignes(int dernieresLignes){
+        if (dernieresLignes <= 0) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est nul ou négatif");
+        }
+        if (dernieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = data.size() - dernieresLignes; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
         }
     }
 
