@@ -1,12 +1,14 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DataFrame {
 
-    private ArrayList<ArrayList<Object>> data;
+    private ArrayList<ArrayList<String>> data;
     private ArrayList<Integer> index;
     private ArrayList<String> columnNames;
+    private ArrayList<String> types;
 
-    public ArrayList<ArrayList<Object>> getData() {
+    public ArrayList<ArrayList<String>> getData() {
         return data;
     }
     public ArrayList<Integer> getIndex() {
@@ -17,18 +19,31 @@ public class DataFrame {
         return columnNames;
     }
 
+    String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"};
 
-    public DataFrame(ArrayList<ArrayList<Object>> data, ArrayList<Integer> index, ArrayList<String> columnNames) {
+    public ArrayList<String> getTypes() {
+        return types;
+    }
 
-        if (data.size() != columnNames.size()) {
+    public DataFrame(ArrayList<ArrayList<String>> data, ArrayList<Integer> index, ArrayList<String> columnNames, ArrayList<String> types) {
+
+        for (int i = 0; i < types.size(); i++) {
+            types.set(i, types.get(i).toUpperCase());
+            if (!Arrays.asList(possibleTypes).contains(types.get(i))) {
+                throw new IllegalArgumentException("Le type " + types.get(i) + " n'est pas autorisé");
+            }
+        }
+
+        int nombreColonnes = data.size()==0 ? 0 : data.get(0).size();
+        int nombreLignes = data.size();
+
+        if (nombreColonnes != columnNames.size()) {
             throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de noms de colonnes");
         }
-
-        int max = 0;
-        for (ArrayList<Object> colonne : data) {
-            if (colonne.size() > max) max = colonne.size();
+        if (nombreColonnes != types.size()) {
+            throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de types fournis");
         }
-        if (max != index.size()) {
+        if (nombreLignes != index.size()) {
             throw new IllegalArgumentException("Le nombre d'index est différent du nombre de lignes");
         }
 
@@ -61,6 +76,8 @@ public class DataFrame {
         this.data = data;
         this.columnNames = columnNames;
         this.index = index;
+        this.types = types;
     }
+
 
 }
