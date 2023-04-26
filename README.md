@@ -20,16 +20,16 @@
 
 ## WorkFlow 
 
-<b> Schéma général : </b >Feature branch | Pull/Merge Request
+<b> Schéma général : </b >Feature branch | Pull/Merge Request <br>
 
-<b> Rôle des collaborateurs : </b> 
-Lucas : Mise en place et configuration de l'intégration continue + revue de code.
-Thierry : Développement, Test, et revue de code.
-Abdoulhakim : Développement, Test, et revue de code.
+<b> Rôle des collaborateurs : </b> <br>
+Lucas : Mise en place et configuration de l'intégration continue + revue de code. <br>
+Thierry : Développement, Test, et revue de code. <br>
+Abdoulhakim : Développement, Test, et revue de code. <br>
 
 ## Outils
 
-GitHub : versionnage
-Maven : build & compiler
-JaCoCo : 
-Codecov :
+GitHub : versionnage <br>
+Maven : build & compiler <br>
+JaCoCo : outil de couverture de code <br>
+Codecov : outil de reporting pour la couvertir de code (découvert sur github marketplace) <br>
