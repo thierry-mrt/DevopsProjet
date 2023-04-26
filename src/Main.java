@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("HELLO WORLD");
 
-        DataFrame d = new DataFrame("resources/csvFiles/fileNormal.csv",";");
+        DataFrame d = new DataFrame("resources/csvFiles/fileMissingData.csv",";");
 
 
     }
