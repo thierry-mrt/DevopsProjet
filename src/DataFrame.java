@@ -1,8 +1,8 @@
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import static java.lang.Integer.parseInt;
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import java.util.*;
 
 
 public class DataFrame {
@@ -415,6 +415,78 @@ public class DataFrame {
     }
 
     /**
+     * Sélectionner un sous-ensemble de lignes selon une liste d'index.
+     * Si aucun index n'est fourni (tableau vide), retourne un dataframe avec aucune lignes mais des noms de colonnes et des types
+     * Condition : La liste d'index ne doit pas contenir de doublons et les index demandé doivent tous être présent dans le dataframe de base.
+     * @param indexToSelect Liste d'index sur lesquels se base la sélection du sous-ensemble
+     * @return Le sous-ensemble de lignes créé
+     * @throws IllegalArgumentException si la condition n'est pas vérifié
+     */
+    public DataFrame selectLinesByIndex(Integer[] indexToSelect){
+        ArrayList<ArrayList<String>> newData = new ArrayList<>();
+        ArrayList<Integer> sortedIndex = new ArrayList<>();
+
+        if(indexToSelect.length > 0){
+            //Si l'utilisateur demande plusieurs fois le même index -> erreur
+            if(checkForDuplicates(indexToSelect)){
+                throw new IllegalArgumentException("Demande plusieurs fois le même index : impossible");
+            }
+
+
+            ArrayList<Integer> rowNumber = new ArrayList<>();
+            //Récupère les indices des index dans le tableau index du Dataframe (car les valeurs des index peuvent ne pas se suivre)
+            //Si un des index demandé n'est pas dans la liste d'index, throw Exception
+            for (int i = 0; i < indexToSelect.length; i++) {
+                if(!this.index.contains(indexToSelect[i])){
+                    throw new IllegalArgumentException("Index demandé pour la sélection pas contenu dans le dataframe");
+                }
+                rowNumber.add(this.index.indexOf(indexToSelect[i]));
+            }
+
+            //Tri les index à sélectionner par leur ordre dans le DataFrame (l'user peut passer des index à selectionner dans le désordre)
+            Collections.sort(rowNumber);
+
+
+
+            //Récupère les lignes de données correspondante au index
+            //Récupère les valeurs des index dans l'ordre trié
+            for (int i = 0; i < rowNumber.size(); i++) {
+                int rowNumberToAdd = rowNumber.get(i);
+                newData.add(this.data.get(rowNumberToAdd));
+                sortedIndex.add(this.index.get(rowNumber.get(i)));
+            }
+        }
+
+        DataFrame newDataFrame = new DataFrame(newData,sortedIndex,this.getColumnNames(),this.getTypes());
+
+        return newDataFrame;
+    }
+
+    // Méthode générique pour vérifier les doublons dans un array
+    private boolean checkForDuplicates(Integer[] array)
+    {
+        // crée un ensemble vide
+        Set<Integer> set = new HashSet<Integer>();
+
+        // faire pour chaque élément du array
+        for (Integer e: array)
+        {
+            // renvoie true si un doublon est trouvé
+            if (set.contains(e)) {
+                return true;
+            }
+
+            // insère l'élément courant dans un ensemble
+            if (e != null) {
+                set.add(e);
+            }
+        }
+
+        // aucun doublon n'est trouvé
+        return false;
+    }
+
+    /**
      * Calcule la somme des valeurs d'une colonne
      * @param colonne le nom de la colonne
      * @return  la somme des valeurs de la colonne ou 0 si la colonne est vide
@@ -437,6 +509,5 @@ public class DataFrame {
         }
         return somme;
     }
-
 
 }
