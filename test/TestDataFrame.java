@@ -8,7 +8,7 @@ public class TestDataFrame {
 
     @Test
     public void testFirst(){
-        assertTrue(true, "test modif");
+        assertTrue(true, "test");
     }
 
 
