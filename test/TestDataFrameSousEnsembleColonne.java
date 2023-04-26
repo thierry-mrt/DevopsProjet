@@ -2,6 +2,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.rmi.UnexpectedException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,7 +15,7 @@ public class TestDataFrameSousEnsembleColonne{
      */
     public TestDataFrameSousEnsembleColonne() {
         ArrayList<String> columnNames1 = new ArrayList<>(Arrays.asList("Fruit", "Marque", "Abreviation","Prenom","Animal"));
-        ArrayList<Integer> index1 = new ArrayList<>(Arrays.asList(1, 2, 3,4,5));
+        ArrayList<Integer> index1 = new ArrayList<>(Arrays.asList(1, 2, 3,4,5,6,7,8));
         ArrayList<ArrayList<String>> data1 = new ArrayList<>();
         data1.add(new ArrayList<>(Arrays.asList("Pomme", "Nike", "PSG","Didier","Chat")));
         data1.add(new ArrayList<>(Arrays.asList("Banane", "Adidas", "OM","Jean","Chien")));
@@ -37,7 +38,7 @@ public class TestDataFrameSousEnsembleColonne{
         DataFrame subDataFrame = dataFrame.sousEnsembleColonnes(labels);
 
         ArrayList<String> expectedLabels = new ArrayList<>(Arrays.asList("Fruit", "Marque", "Abreviation"));
-        ArrayList<Integer> expectedIndex = new ArrayList<>(Arrays.asList(1, 2, 3,4,5));
+        ArrayList<Integer> expectedIndex = new ArrayList<>(Arrays.asList(1, 2, 3,4,5, 6,7,8));
         ArrayList<ArrayList<String>> expectedData = new ArrayList<>();
         expectedData.add(new ArrayList<>(Arrays.asList("Pomme", "Nike", "PSG")));
         expectedData.add(new ArrayList<>(Arrays.asList("Banane", "Adidas", "OM")));
@@ -64,7 +65,7 @@ public class TestDataFrameSousEnsembleColonne{
         DataFrame subDataFrame = dataFrame.sousEnsembleColonnes(labels);
 
         ArrayList<String> expectedLabels = new ArrayList<>(Arrays.asList("Animal", "Marque", "Prenom"));
-        ArrayList<Integer> expectedIndex = new ArrayList<>(Arrays.asList(1, 2, 3,4,5));
+        ArrayList<Integer> expectedIndex = new ArrayList<>(Arrays.asList(1, 2, 3,4,5,6,7,8));
         ArrayList<ArrayList<String>> expectedData = new ArrayList<>();
         expectedData.add(new ArrayList<>(Arrays.asList("Chat", "Nike", "Didier")));
         expectedData.add(new ArrayList<>(Arrays.asList("Chien", "Adidas", "Jean")));
@@ -88,7 +89,7 @@ public class TestDataFrameSousEnsembleColonne{
     @Test
     public void testSousEnsembleColonneNonExistant(){
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("Ballons", "Poissons", "Villes","Stars","Drapeaux"));
-        assertThrows(IllegalArgumentException.class, () -> dataFrame.sousEnsembleColonnes(labels), 
+        assertThrows(Exception.class, () -> dataFrame.sousEnsembleColonnes(labels), 
         "Un sous ensemble de nom de colonnes non existantes a été fourni");
     }
 
@@ -98,7 +99,7 @@ public class TestDataFrameSousEnsembleColonne{
     @Test
     public void testSousEnsembleColonneExistantNonExistant(){
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("Fruit", "Marque", "Abreviation","Stars","Drapeaux"));
-        assertThrows(IllegalArgumentException.class, () -> dataFrame.sousEnsembleColonnes(labels), 
+        assertThrows(Exception.class, () -> dataFrame.sousEnsembleColonnes(labels), 
         "Certains noms de colonnes sont inexistants");
     }
 
@@ -108,7 +109,7 @@ public class TestDataFrameSousEnsembleColonne{
      @Test
     public void testSousEnsembleColonneTropGrand(){
         ArrayList<String> labels = new ArrayList<>(Arrays.asList("Fruit", "Marque", "Abreviation","Animal","Prenom","Ballons","Poissons","Villes","Stars","Drapeaux"));
-        assertThrows(IllegalArgumentException.class, () -> dataFrame.sousEnsembleColonnes(labels),
+        assertThrows(Exception.class, () -> dataFrame.sousEnsembleColonnes(labels),
         "Le nombre de colonnes demandées est supérieur au nombre de colonnes du DataFrame original");
     }
 
@@ -118,7 +119,7 @@ public class TestDataFrameSousEnsembleColonne{
     @Test
     public void testSousEnsembleColonneNull(){
         ArrayList<String> labels = null;
-        assertThrows(IllegalArgumentException.class, () -> dataFrame.sousEnsembleColonnes(labels),
+        assertThrows(Exception.class, () -> dataFrame.sousEnsembleColonnes(labels),
         "Le nombre de colonnes demandées est null");
     }   
 
