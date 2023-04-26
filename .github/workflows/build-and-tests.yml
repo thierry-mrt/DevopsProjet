@@ -31,3 +31,15 @@ jobs:
           name: Maven Tests
           path: target/surefire-reports/*.xml
           reporter: java-junit
+      
+      - name: Generate JaCoCo report
+        run: mvn jacoco:report --file pom.xml
+      - name: Upload JaCoCo report
+        uses: actions/upload-artifact@v3
+        with:
+          name: jacoco-report
+          path: target/site/jacoco/
+      
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        
