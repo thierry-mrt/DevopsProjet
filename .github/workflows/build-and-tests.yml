@@ -1,6 +1,6 @@
 name: build-project-and-launch-tests
 run-name: ${{ github.actor }} is pushing contents and launching build and tests
-on: [push]
+on: [push,pull_request]
 jobs:
   build-project:
     runs-on: ubuntu-latest
