@@ -3,6 +3,6 @@
 ##Fonctionnalités
 
 ##WorkFlow 
-Feature branch | Pull/Merge Request | "develop" branch
+Feature branch | Pull/Merge Request
 
 ##Outils
