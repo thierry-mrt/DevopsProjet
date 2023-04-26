@@ -1,5 +1,4 @@
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,21 +9,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDataFrame {
 
-    private static DataFrame dataFrame1, dataFrame2, dataFrame3, dataFrameVide;
-    private static ArrayList<String> columnNames1, columnNames2, columnNames3, columnNamesVide;
+    private static DataFrame dataFrame1, dataFrame2, dataFrameVide;
+    private static ArrayList<String> columnNames1, columnNames2, columnNamesVide;
     private static ArrayList<Integer> index1, index2, index3, indexVide;
-    private static ArrayList<ArrayList<Object>> data1 , data2 , data3, dataVide;
+    private static ArrayList<ArrayList<String>> data1, data2, dataVide;
+
+    private static ArrayList<String> types1, types2, typesFalse, typesVide;
 
     @BeforeAll
     public static void init() {
         columnNames1 = new ArrayList<>(Arrays.asList("Column1", "Column2", "Column3"));
         columnNames2 = new ArrayList<>(Arrays.asList("Column1", "Column2", "Column1"));
-        columnNames3 = new ArrayList<>(Arrays.asList("Strings", "Entiers", "Booleens"));
         columnNamesVide = new ArrayList<>(List.of());
 
         index1 = new ArrayList<>(Arrays.asList(1, 2, 3));
         index2 = new ArrayList<>(Arrays.asList(1, 2, 3, 4));
-        index3 = new ArrayList<>(Arrays.asList(1, 2, 1, 1, 5));
+        index3 = new ArrayList<>(Arrays.asList(1, 2, 1));
         indexVide = new ArrayList<>(List.of());
 
         data1 = new ArrayList<>();
@@ -34,21 +34,20 @@ public class TestDataFrame {
 
         data2 = new ArrayList<>();
         data2.add(new ArrayList<>(Arrays.asList("1", "2", "3", "4")));
-        data2.add(new ArrayList<>(Arrays.asList("4", "5", "6","7")));
-
-        data3 = new ArrayList<>();
-        data3.add(new ArrayList<>(Arrays.asList("1", "2", "3")));
-        data3.add(new ArrayList<>(Arrays.asList(1, 2, 3)));
-        data3.add(new ArrayList<>(Arrays.asList(true, false, true)));
+        data2.add(new ArrayList<>(Arrays.asList("4", "5", "6", "7")));
 
         dataVide = new ArrayList<>(List.of());
 
-        dataFrame1 = new DataFrame(data1, index1, columnNames1);
-        dataFrame3 = new DataFrame(data3, index1, columnNames3);
-        dataFrameVide = new DataFrame(dataVide, indexVide, columnNamesVide);
+        types1 = new ArrayList<>(Arrays.asList("INTEGER", "INTEGER", "INTEGER"));
+        types2 = new ArrayList<>(Arrays.asList("INTEGER", "STRING", "INTEGER", "STRING"));
+        typesFalse = new ArrayList<>(Arrays.asList("STRING", "POISSON", "BOOLEAN"));
+        typesVide = new ArrayList<>(List.of());
+
+        dataFrame1 = new DataFrame(data1, index1, columnNames1, types1);
+        dataFrameVide = new DataFrame(dataVide, indexVide, columnNamesVide, typesVide);
     }
     @Test
-    public void testDataFrameInstanciation(){
+    public void testDataFrameInstanciationByArrays(){
         assertEquals(DataFrame.class, dataFrame1.getClass(), "DataFrame non instancie correctement");
         assertEquals(DataFrame.class, dataFrameVide.getClass(), "DataFrame vide non instancie correctement");
     }
@@ -63,44 +62,58 @@ public class TestDataFrame {
 
         assertEquals(data1, dataFrame1.getData(),"getData() non fonctionnel");
         assertEquals(new ArrayList<>(), dataFrameVide.getData(),"getData() non fonctionnel");
+
+        assertEquals(types1, dataFrame1.getTypes(),"getTypes() non fonctionnel");
+        assertEquals(new ArrayList<>(), dataFrameVide.getTypes(),"getTypes() non fonctionnel");
     }
 
     @Test
-    public void testTypesElementsColonne(){
-        for (int i = 0; i < dataFrame1.getColumnNames().size(); i++) {
-            for (int j = 0; j < dataFrame1.getData().get(i).size(); j++) {
-                assertEquals(dataFrame1.getData().get(i).get(0).getClass(), dataFrame1.getData().get(i).get(j).getClass(),
-                        "les données de la colonne " + i + " ne sont pas du même type");
-            }
-        }
-    }
-    @Test
     public void testDoublonsIndex(){
         assertThrows(IllegalArgumentException.class, () -> {
-            dataFrame2 = new DataFrame(data1, index3, columnNames1);
+            dataFrame2 = new DataFrame(data1, index3, columnNames1, types1);
         }, "IllegalArgumentException non levee");
     }
 
     @Test
     public void testDoublonsNomsColonnes(){
         assertThrows(IllegalArgumentException.class, () -> {
-            dataFrame2 = new DataFrame(data1, index1, columnNames2);
+            dataFrame2 = new DataFrame(data1, index1, columnNames2, types1);
         }, "IllegalArgumentException non levee");
     }
 
     @Test
     public void testExceptionTailleColonnes(){
         assertThrows(IllegalArgumentException.class, () -> {
-            dataFrame2 = new DataFrame(data2, index1, columnNames1);
+            dataFrame2 = new DataFrame(data2, index1, columnNames1, types1);
         }, "IllegalArgumentException non levee");
     }
 
     @Test
     public void testExceptionTailleIndex(){
         assertThrows(IllegalArgumentException.class, () -> {
-            dataFrame2 = new DataFrame(data1, index2, columnNames1);
+            dataFrame2 = new DataFrame(data1, index2, columnNames1, types1);
         }, "IllegalArgumentException non levee");
     }
 
+    @Test
+    public void testExceptionTailleTypes(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            dataFrame2 = new DataFrame(data1, index1, columnNames1, types2);
+        }, "IllegalArgumentException non levee");
+    }
+
+    @Test
+    public void testExceptionTypes(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            dataFrame2 = new DataFrame(data1, index1, columnNames1, typesFalse);
+        }, "IllegalArgumentException non levee");
+    }
+
+    @Test
+    public void testExceptionTypesVide(){
+        assertThrows(IllegalArgumentException.class, () -> {
+            dataFrame2 = new DataFrame(data1, index1, columnNames1, typesVide);
+        }, "IllegalArgumentException non levee");
+    }
 
 }
