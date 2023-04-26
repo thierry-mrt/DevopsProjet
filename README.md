@@ -1,5 +1,7 @@
 # DevopsProjet
-![example branch parameter](https://img.shields.io/github/actions/workflow/status/thierry-mrt/DevopsProjet/build-and-tests.yml)
+
+[![build-project-and-launch-tests](https://github.com/thierry-mrt/DevopsProjet/actions/workflows/build-and-tests.yml/badge.svg?branch=master&event=push)](https://github.com/thierry-mrt/DevopsProjet/actions/workflows/build-and-tests.yml)
+
 ##Fonctionnalités
 
 ##WorkFlow 
