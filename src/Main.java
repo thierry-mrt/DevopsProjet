@@ -1,6 +1,16 @@
+import java.io.File;
+import java.util.ArrayList;
+
 public class Main {
 
     public static void main(String[] args) {
         System.out.println("HELLO WORLD");
+
+        DataFrame d = new DataFrame("resources/csvFiles/fileNormal.csv",";");
+
+
     }
+
+
+
 }
