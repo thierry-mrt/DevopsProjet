@@ -177,14 +177,27 @@ public class DataFrame {
         }
     }
 
+    /**
+     * @param name : columnNames to test
+     * @return true true if the name is a doublon , false otherwise
+     */
     private boolean isDoublonColumnNames(String name){
         return this.columnNames.contains(name);
     }
 
+    /**
+     * @param index : index to test
+     * @return true if the index is a doublon , false otherwise
+     */
     private boolean isDoublonIndex(Integer index){
         return this.index.contains(index);
     }
 
+    /**
+     * Add empty string to the end of the line data
+     * @param listLineData : List of data for a line
+     * @param nbRemainingEmptyData : Number of remaining data to add
+     */
     private void addEmptyRemainingData(ArrayList<String> listLineData, int nbRemainingEmptyData) {
         for (int i = 0; i < nbRemainingEmptyData; i++) {
             listLineData.add("");
@@ -218,6 +231,10 @@ public class DataFrame {
 
     }
 
+    /**
+     * Insert in columnNames all the names
+     * @param listColumnNames : List of the different column names
+     */
     private void createcolumnNames(String[] listColumnNames){
         //For each column names
         for (int i = 0 ; i < listColumnNames.length ; i++){

@@ -34,7 +34,18 @@ public class TestDataFrameConst2  {
         listDataMissing.add(line2Miss);
 
     }
-
+    /*
+    * testFile*Column : test si les noms de colonnes sont ok et si il y a le bon nombre
+    * testFile*Index : test si les index sont ok et si il y a le bon nombre
+    * testFile*Types : test si les types sont ok et si il y a le bon nombre
+    * testFile*Data : test si les données sont ok et si il y a le bon nombre
+    * testFile*SizeOfArrays : test si tout les Attributs ArrayList ont la bonne taille
+    *
+    * Normal : fichier basique, bien structuré
+    * EmptyLines : fichier ayant des lignes vides
+    * NonContiguousIndex : fichier ayant des numéro d'index pas continu
+    * MissingData : fichier ayant des données manquantes
+    * */
     @Test
     public void testFileNormalColumn(){
         DataFrame d = new DataFrame(csvPath+"/fileNormal.csv",";");
@@ -117,6 +128,9 @@ public class TestDataFrameConst2  {
         }
     }
 
+    /*
+    * Un fichier vide doit jeter une exception
+    * */
     @Test
     public void testFileEmpty(){
         final DataFrame[] d = {null};
