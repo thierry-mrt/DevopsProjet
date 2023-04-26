@@ -56,6 +56,21 @@ public class TestDataFrameStats {
     }
 
     /**
+     * Test de la méthode calculerSommeColonne sur un DataFrame vide
+     */
+    @Test
+    public void testCalculerSommeColonneDataFrameVide() {
+        ArrayList<String> columnNames = new ArrayList<>(Arrays.asList("Entiers", "Flottants", "Strings","Vide","Booleans"));
+        ArrayList<Integer> index = new ArrayList<>();
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        ArrayList<String> types = new ArrayList<>(Arrays.asList("INTEGER", "FLOAT", "STRING","INTEGER","BOOLEAN"));
+        DataFrame dataFrameVide = new DataFrame(data, index, columnNames, types);
+        expected = 0;
+        actual = dataFrameVide.calculerSommeColonne("Entiers");
+        assertEquals(expected, actual, "Somme de la colonne Entiers incorrecte");
+    }
+
+    /**
      * Test de la méthode calculerSommeColonne sur des colonnes inexistantes
      */
     @Test
