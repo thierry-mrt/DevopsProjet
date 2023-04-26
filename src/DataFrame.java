@@ -319,4 +319,102 @@ public class DataFrame {
         }
     }
 
+    /**
+     * Vérifie si la colonne contient des données numériques
+     * @param colonne le nom de la colonne
+     * @return vrai si la colonne contient des données numériques, faux sinon
+     */
+    private boolean columnIsNumeric(String colonne) {
+        int indexColonne = columnNames.indexOf(colonne);
+        if (!(types.get(indexColonne).equals("INTEGER") || types.get(indexColonne).equals("FLOAT"))) {
+            throw new IllegalArgumentException("La colonne " + colonne + " ne contient pas des données numériques");
+        }
+        return true;
+    }
+
+    /**
+     * Vérifie si la colonne existe
+     * @param colonne le nom de la colonne
+     * @return vrai si la colonne existe, faux sinon
+     */
+    private boolean columnDoesExist(String colonne) {
+        if (!columnNames.contains(colonne)) {
+            throw new IllegalArgumentException("La colonne " + colonne + " n'existe pas");
+        }
+        return true;
+    }
+
+    /**
+     * Calcule la moyenne des valeurs d'une colonne
+     * @param colonne le nom de la colonne
+     * @return la liste des valeurs de la colonne ou 0 si la colonne est vide
+     */
+    public Float calculerMoyenneColonne(String colonne){
+        assert columnDoesExist(colonne);
+        assert columnIsNumeric(colonne);
+        if (data.size() == 0) return 0F;
+
+        int indexColonne = columnNames.indexOf(colonne);
+        if (data.size() == 0) {
+            return 0F;
+        }
+        float somme = 0;
+        for (ArrayList<String> line: data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
+            somme += Float.parseFloat(line.get(indexColonne));
+        }
+        return somme / data.size();
+    }
+
+    /**
+     * Calcule la valeur minimale d'une colonne
+     * @param colonne le nom de la colonne
+     * @return la valeur minimale de la colonne ou 0 si la colonne est vide
+     */
+    public Float calculerLeMinimumColonne(String colonne){
+        assert columnDoesExist(colonne);
+        assert columnIsNumeric(colonne);
+        if (data.size() == 0) return 0F;
+
+        int indexColonne = columnNames.indexOf(colonne);
+        float minimum = Float.MAX_VALUE;
+        for (ArrayList<String> line: data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
+            float valeur = Float.parseFloat(line.get(indexColonne));
+            if (valeur < minimum) {
+                minimum = valeur;
+            }
+        }
+        return minimum==Float.MAX_VALUE?0:minimum;
+    }
+
+    /**
+     * Calcule la valeur maximale d'une colonne
+     * @param colonne le nom de la colonne
+     * @return la valeur maximale de la colonne ou 0 si la colonne est vide
+     */
+    public Float calculerLeMaximumColonne(String colonne) {
+        assert columnDoesExist(colonne);
+        assert columnIsNumeric(colonne);
+        if (data.size() == 0) return 0F;
+
+        int indexColonne = columnNames.indexOf(colonne);
+        float maximum = 0;
+        for (ArrayList<String> line : data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
+            float valeur = Float.parseFloat(line.get(indexColonne));
+            if (valeur > maximum) {
+                maximum = valeur;
+            }
+        }
+        return maximum;
+    }
+
+
 }
