@@ -179,6 +179,9 @@ public class DataFrame {
         }
         float somme = 0;
         for (ArrayList<String> line: data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
             somme += Float.parseFloat(line.get(indexColonne));
         }
         return somme / data.size();
@@ -197,6 +200,9 @@ public class DataFrame {
         int indexColonne = columnNames.indexOf(colonne);
         float minimum = Float.parseFloat(data.get(0).get(indexColonne));
         for (ArrayList<String> line: data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
             float valeur = Float.parseFloat(line.get(indexColonne));
             if (valeur < minimum) {
                 minimum = valeur;
@@ -218,6 +224,9 @@ public class DataFrame {
         int indexColonne = columnNames.indexOf(colonne);
         float maximum = Float.parseFloat(data.get(0).get(indexColonne));
         for (ArrayList<String> line : data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
             float valeur = Float.parseFloat(line.get(indexColonne));
             if (valeur > maximum) {
                 maximum = valeur;
