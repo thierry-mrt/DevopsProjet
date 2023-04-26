@@ -30,6 +30,14 @@ public class DataFrame {
 
     /**
      * Constructeur de la classe DataFrame
+     * @throws  IllegalArgumentException si:
+     * - aucun type de données n'est fourni
+     * - un type de données inconnu est fourni
+     * - une ligne de données a plus d'éléments que le nombre de colonnes fourni
+     * - le nombre de colonnes de données est différent du nombre de types fournis
+     * - le nom des colonnes est identique
+     * - les index sont identiques
+     *
      * @param data tableau de données (lignes du DataFrame)
      * @param index tableau d'index (un index par ligne)
      * @param columnNames tableau de noms de colonnes (un nom par colonne)
@@ -106,7 +114,7 @@ public class DataFrame {
      * First column is the name of each line
      * @param filePath Absolute path to a .csv file
      * @param fileSeparator Delimiter used in the .csv file
-     * Throw IllegalArgumentException si:
+     * @throws IllegalArgumentException si:
      * - un type inconnu est passé
      * - le fichier est vide
      * - il manque soit les types, les noms de colonnes ou les index
@@ -262,6 +270,7 @@ public class DataFrame {
 
     /**
      * Insert in columnNames all the names
+     * @throws IllegalArgumentException if two column have the same name
      * @param listColumnNames : List of the different column names
      */
     private void createcolumnNames(String[] listColumnNames){
@@ -286,7 +295,8 @@ public class DataFrame {
     }
   
 
-     /* Affiche les premières lignes du DataFrame
+     /** Affiche les premières lignes du DataFrame
+     * @throws IllegalArgumentException si le nombre de lignes demandées est nul ou négatif ou supérieur au nombre de lignes du DataFrame
      * @param premieresLignes nombre de lignes à afficher
      */
     public void afficherPremieresLignes(int premieresLignes){
@@ -304,6 +314,7 @@ public class DataFrame {
 
     /**
      * Affiche les dernières lignes du DataFrame
+     * @throws IllegalArgumentException si le nombre de lignes demandées est nul ou négatif ou supérieur au nombre de lignes du DataFrame
      * @param dernieresLignes nombre de lignes à afficher
      */
     public void afficherDernieresLignes(int dernieresLignes){
@@ -322,6 +333,7 @@ public class DataFrame {
     /**
      * Vérifie si la colonne contient des données numériques
      * @param colonne le nom de la colonne
+     * @throws IllegalArgumentException si la colonne ne contient pas des données numériques
      * @return vrai si la colonne contient des données numériques, faux sinon
      */
     private boolean columnIsNumeric(String colonne) {
@@ -335,6 +347,7 @@ public class DataFrame {
     /**
      * Vérifie si la colonne existe
      * @param colonne le nom de la colonne
+     * @throws IllegalArgumentException si la colonne n'existe pas
      * @return vrai si la colonne existe, faux sinon
      */
     private boolean columnDoesExist(String colonne) {
@@ -347,25 +360,10 @@ public class DataFrame {
     /**
      * Calcule la moyenne des valeurs d'une colonne
      * @param colonne le nom de la colonne
-     * @return la liste des valeurs de la colonne ou 0 si la colonne est vide
+     * @return la moyenne des valeurs de la colonne ou 0 si la colonne est vide
      */
     public Float calculerMoyenneColonne(String colonne){
-        assert columnDoesExist(colonne);
-        assert columnIsNumeric(colonne);
-        if (data.size() == 0) return 0F;
-
-        int indexColonne = columnNames.indexOf(colonne);
-        if (data.size() == 0) {
-            return 0F;
-        }
-        float somme = 0;
-        for (ArrayList<String> line: data) {
-            if (line.get(indexColonne).equals("")) {
-                continue;
-            }
-            somme += Float.parseFloat(line.get(indexColonne));
-        }
-        return somme / data.size();
+        return calculerSommeColonne(colonne)/data.size();
     }
 
     /**
@@ -414,6 +412,30 @@ public class DataFrame {
             }
         }
         return maximum;
+    }
+
+    /**
+     * Calcule la somme des valeurs d'une colonne
+     * @param colonne le nom de la colonne
+     * @return  la somme des valeurs de la colonne ou 0 si la colonne est vide
+     */
+    public Float calculerSommeColonne(String colonne){
+        assert columnDoesExist(colonne);
+        assert columnIsNumeric(colonne);
+        if (data.size() == 0) return 0F;
+
+        int indexColonne = columnNames.indexOf(colonne);
+        if (data.size() == 0) {
+            return 0F;
+        }
+        float somme = 0;
+        for (ArrayList<String> line: data) {
+            if (line.get(indexColonne).equals("")) {
+                continue;
+            }
+            somme += Float.parseFloat(line.get(indexColonne));
+        }
+        return somme;
     }
 
 
