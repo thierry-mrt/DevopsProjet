@@ -1,6 +1,6 @@
 # DevopsProjet
 
-![example branch parameter](https://img.shields.io/github/actions/workflow/status/thierry-mrt/DevopsProjet/build-and-tests.yml)
+![example branch parameter](https://img.shields.io/github/actions/workflow/status/thierry-mrt/DevopsProjet/build-and-tests.yml?event=push)
 
 ##Fonctionnalités
 
