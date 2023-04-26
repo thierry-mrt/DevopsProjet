@@ -168,14 +168,14 @@ public class DataFrame {
      * @param colonne le nom de la colonne
      * @return la liste des valeurs de la colonne ou 0 si la colonne est vide
      */
-    public float calculerMoyenneColonne(String colonne){
+    public Float calculerMoyenneColonne(String colonne){
         assert columnDoesExist(colonne);
         assert columnIsNumeric(colonne);
-        if (data.size() == 0) return 0;
+        if (data.size() == 0) return 0F;
 
         int indexColonne = columnNames.indexOf(colonne);
         if (data.size() == 0) {
-            return 0;
+            return 0F;
         }
         float somme = 0;
         for (ArrayList<String> line: data) {
@@ -192,10 +192,10 @@ public class DataFrame {
      * @param colonne le nom de la colonne
      * @return la valeur minimale de la colonne ou 0 si la colonne est vide
      */
-    public float calculerLeMinimumColonne(String colonne){
+    public Float calculerLeMinimumColonne(String colonne){
         assert columnDoesExist(colonne);
         assert columnIsNumeric(colonne);
-        if (data.size() == 0) return 0;
+        if (data.size() == 0) return 0F;
 
         int indexColonne = columnNames.indexOf(colonne);
         float minimum = Float.MAX_VALUE;
@@ -216,10 +216,10 @@ public class DataFrame {
      * @param colonne le nom de la colonne
      * @return la valeur maximale de la colonne ou 0 si la colonne est vide
      */
-    public float calculerLeMaximumColonne(String colonne) {
+    public Float calculerLeMaximumColonne(String colonne) {
         assert columnDoesExist(colonne);
         assert columnIsNumeric(colonne);
-        if (data.size() == 0) return 0;
+        if (data.size() == 0) return 0F;
 
         int indexColonne = columnNames.indexOf(colonne);
         float maximum = 0;
