@@ -7,6 +7,7 @@ public class DataFrame {
     private ArrayList<Integer> index;
     private ArrayList<String> columnNames;
     private ArrayList<String> types;
+    private String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"}; // types autorisés
 
     public ArrayList<ArrayList<String>> getData() {
         return data;
@@ -14,13 +15,9 @@ public class DataFrame {
     public ArrayList<Integer> getIndex() {
         return index;
     }
-
     public ArrayList<String> getColumnNames() {
         return columnNames;
     }
-
-    private String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"}; // types autorisés
-
     public ArrayList<String> getTypes() {
         return types;
     }
