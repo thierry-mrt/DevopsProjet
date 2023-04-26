@@ -198,7 +198,7 @@ public class DataFrame {
         if (data.size() == 0) return 0;
 
         int indexColonne = columnNames.indexOf(colonne);
-        float minimum = Float.parseFloat(data.get(0).get(indexColonne));
+        float minimum = Float.MAX_VALUE;
         for (ArrayList<String> line: data) {
             if (line.get(indexColonne).equals("")) {
                 continue;
@@ -208,7 +208,7 @@ public class DataFrame {
                 minimum = valeur;
             }
         }
-        return minimum;
+        return minimum==Float.MAX_VALUE?0:minimum;
     }
 
     /**
@@ -222,7 +222,7 @@ public class DataFrame {
         if (data.size() == 0) return 0;
 
         int indexColonne = columnNames.indexOf(colonne);
-        float maximum = Float.parseFloat(data.get(0).get(indexColonne));
+        float maximum = 0;
         for (ArrayList<String> line : data) {
             if (line.get(indexColonne).equals("")) {
                 continue;
