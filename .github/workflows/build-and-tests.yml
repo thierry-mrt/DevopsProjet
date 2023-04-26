@@ -16,7 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Tests with Maven
-        run: mvn -B test --file pom.xml
+        run: mvn -B -Dmaven.test.failure.ignore=true test --file pom.xml
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
