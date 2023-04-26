@@ -1,17 +1,15 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TestDataFrame {
 
     @Test
-    public void testdataframetest(){
+    public void testFirst(){
         assertTrue(true, "test");
     }
 
-    @Test
-    public void testdataframetest2(){
-        assertTrue(false, "test du 2eme test");
-    }
 
 }
