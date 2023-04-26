@@ -19,13 +19,24 @@ public class DataFrame {
         return columnNames;
     }
 
-    String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"};
+    private String[] possibleTypes = {"STRING", "INTEGER", "BOOLEAN", "FLOAT"}; // types autorisés
 
     public ArrayList<String> getTypes() {
         return types;
     }
 
+    /**
+     * Constructeur de la classe DataFrame
+     * @param data tableau de données (lignes du DataFrame)
+     * @param index tableau d'index (un index par ligne)
+     * @param columnNames tableau de noms de colonnes (un nom par colonne)
+     * @param types tableau de types de données (un type par colonne)
+     */
     public DataFrame(ArrayList<ArrayList<String>> data, ArrayList<Integer> index, ArrayList<String> columnNames, ArrayList<String> types) {
+
+        if (types.size()==0 && columnNames.size()!=0) {
+            throw new IllegalArgumentException("Aucun type de données n'a été fourni");
+        }
 
         for (int i = 0; i < types.size(); i++) {
             types.set(i, types.get(i).toUpperCase());
@@ -34,12 +45,19 @@ public class DataFrame {
             }
         }
 
-        int nombreColonnes = data.size()==0 ? 0 : data.get(0).size();
+        int nombreColonnes = columnNames.size();
+
+        for (ArrayList<String> line: data) {
+            while (line.size() < columnNames.size()) {
+                line.add("");
+            }
+            if (line.size() > nombreColonnes) {
+                throw new IllegalArgumentException("Une ligne de données a plus d'éléments que le nombre de colonnes fournies");
+            }
+        }
+
         int nombreLignes = data.size();
 
-        if (nombreColonnes != columnNames.size()) {
-            throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de noms de colonnes");
-        }
         if (nombreColonnes != types.size()) {
             throw new IllegalArgumentException("Le nombre de colonnes de données est différent du nombre de types fournis");
         }
