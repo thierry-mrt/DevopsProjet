@@ -1,5 +1,5 @@
 # DevopsProjet
-![example branch parameter](https://github.com/github/docs/actions/workflows/main.yml/badge.svg?branch=CI_test)
+![example branch parameter](https://img.shields.io/github/actions/workflow/status/thierry-mrt/DevopsProjet/build-and-tests.yml)
 ##Fonctionnalités
 
 ##WorkFlow 
