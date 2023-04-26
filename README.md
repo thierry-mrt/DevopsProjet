@@ -19,6 +19,17 @@
  - [x] Création d'un Dataframe sous ensemble des colonnes d'un Dataframe existant.
 
 ## WorkFlow 
-Feature branch | Pull/Merge Request
+
+<b> Schéma général : </b >Feature branch | Pull/Merge Request
+
+<b> Rôle des collaborateurs : </b> 
+Lucas : Mise en place et configuration de l'intégration continue + revue de code.
+Thierry : Développement, Test, et revue de code.
+Abdoulhakim : Développement, Test, et revue de code.
 
 ## Outils
+
+GitHub : versionnage
+Maven : build & compiler
+JaCoCo : 
+Codecov :
