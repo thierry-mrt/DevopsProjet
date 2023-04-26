@@ -446,7 +446,7 @@ public class DataFrame {
      */
     public DataFrame sousEnsembleColonnes(ArrayList<String> labels){
 
-        assert labels.size() > 0 && labels.size() <= columnNames.size();
+        assert labels.size() > 0 || labels.size() <= columnNames.size();
 
         for (String label: labels) {
             assert columnDoesExist(label);
