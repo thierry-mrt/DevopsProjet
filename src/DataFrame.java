@@ -94,5 +94,31 @@ public class DataFrame {
         this.types = types;
     }
 
+    public void afficher(){
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+
+    public void afficherPremieresLignes(int premieresLignes){
+        if (premieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = 0; i < premieresLignes; i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
+
+    public void afficherDernieresLignes(int dernieresLignes){
+        if (dernieresLignes > data.size()) {
+            throw new IllegalArgumentException("Le nombre de lignes demandées est supérieur au nombre de lignes du DataFrame");
+        }
+        System.out.println("\t" + String.join("\t", columnNames));
+        for (int i = data.size() - dernieresLignes; i < data.size(); i++) {
+            System.out.println(index.get(i) + "\t" + String.join("\t", data.get(i)));
+        }
+    }
 
 }
