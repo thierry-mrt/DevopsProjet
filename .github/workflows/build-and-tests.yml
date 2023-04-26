@@ -44,8 +44,11 @@ jobs:
         uses: codecov/codecov-action@v3
         
       - name: Publish package
-        run: mvn --batch-mode deploy
-        env:
-          GITHUB_TOKEN: ${{ secrets.MAVEN_TOKEN }}
+        uses: maven-publish/action@v2
+        with:
+          server-id: github
+          repository: https://maven.pkg.github.com/thierry-mrt/DevopsProjet
+          username: ${{ secrets.GITHUB_ACTOR }}
+          password: ${{ secrets.MAVEN_TOKEN }}
         
 
