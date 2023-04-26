@@ -1,4 +1,3 @@
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -7,7 +6,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TestDataFrame {
+public class TestDataFrameConst1 {
 
     private static DataFrame dataFrame1, dataFrame2, dataFrameVide;
     private static ArrayList<String> columnNames1, columnNames2, columnNamesVide;
@@ -16,8 +15,7 @@ public class TestDataFrame {
 
     private static ArrayList<String> types1, types2, typesFalse, typesVide;
 
-    @BeforeAll
-    public static void init() {
+    public TestDataFrameConst1() {
         columnNames1 = new ArrayList<>(Arrays.asList("Column1", "Column2", "Column3"));
         columnNames2 = new ArrayList<>(Arrays.asList("Column1", "Column2", "Column1"));
         columnNamesVide = new ArrayList<>(List.of());
